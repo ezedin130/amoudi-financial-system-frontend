@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;600;700&family=Jost:wght@300;400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Jost', ui-sans-serif, system-ui, sans-serif;
+  --font-josefin: 'Josefin Sans', sans-serif;
+  --font-jost: 'Jost', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+
+  --color-brand-primary: #0F2E22;
+  --color-brand-secondary: #CBA326;
+}
+
+* {
+  font-family: 'Jost', ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-josefin {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.font-jost {
+  font-family: 'Jost', sans-serif;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Tabular numbers for financial data */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
