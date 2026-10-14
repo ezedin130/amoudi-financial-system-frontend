@@ -50,7 +50,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               px-3 py-2 border
               ${error ? 'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500' : 'border-slate-300 text-slate-900 placeholder-slate-400'}
               ${leftIcon ? 'pl-9' : ''}
-              ${rightIcon ? 'pr-9' : ''}
+              ${rightIcon ? 'pr-10' : ''}
               focus:outline-none
               disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:cursor-not-allowed
               ${className}
@@ -58,7 +58,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
           {rightIcon && (
-            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400">
               {rightIcon}
             </div>
           )}

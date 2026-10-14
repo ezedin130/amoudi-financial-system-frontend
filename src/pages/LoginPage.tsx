@@ -5,10 +5,12 @@ import { AmoudiMark } from '@/components/branding/AmoudiMark';
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import { IEye, IEyeOff } from '@/components/ui/Icons';
 
 export const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [validationError, setValidationError] = useState('');
   const { login, isLoading, error, clearError } = useAuth();
   const navigate = useNavigate();
@@ -82,13 +84,29 @@ export const LoginPage: React.FC = () => {
             <div>
               <Input
                 label="Password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 autoComplete="current-password"
                 disabled={isLoading}
                 required
+                rightIcon={
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    title={showPassword ? 'Hide password' : 'Show password'}
+                    disabled={isLoading}
+                    className="text-slate-400 hover:text-slate-600 focus:outline-none focus:ring-2 focus:ring-[#CBA326] focus:ring-offset-1 rounded p-1 transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {showPassword ? (
+                      <IEyeOff size={18} aria-hidden="true" />
+                    ) : (
+                      <IEye size={18} aria-hidden="true" />
+                    )}
+                  </button>
+                }
               />
             </div>
 
