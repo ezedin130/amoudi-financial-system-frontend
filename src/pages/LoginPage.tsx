@@ -5,13 +5,16 @@ import { AmoudiMark } from '@/components/branding/AmoudiMark';
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
-import { IEye, IEyeOff } from '@/components/ui/Icons';
+import { IEye, IEyeOff, ICheck } from '@/components/ui/Icons';
+import { ForgotPasswordModal } from '@/features/auth/components/ForgotPasswordModal';
 
 export const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [validationError, setValidationError] = useState('');
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const { login, isLoading, error, clearError } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,6 +25,7 @@ export const LoginPage: React.FC = () => {
     e.preventDefault();
     clearError();
     setValidationError('');
+    setSuccessMessage(null);
 
     const trimmedUsername = username.trim();
     if (!trimmedUsername) {
@@ -46,6 +50,16 @@ export const LoginPage: React.FC = () => {
     setPassword(pass);
     setValidationError('');
     clearError();
+    setSuccessMessage(null);
+  };
+
+  const handleRecoverySuccess = (recoveredUsername: string) => {
+    setUsername(recoveredUsername);
+    setPassword('');
+    setShowPassword(false);
+    setValidationError('');
+    clearError();
+    setSuccessMessage('Password reset successfully! Please sign in with your new password.');
   };
 
   const activeError = validationError || error;
@@ -110,6 +124,32 @@ export const LoginPage: React.FC = () => {
               />
             </div>
 
+            <div className="flex justify-end -mt-1">
+              <button
+                type="button"
+                onClick={() => {
+                  setValidationError('');
+                  clearError();
+                  setSuccessMessage(null);
+                  setShowForgotPassword(true);
+                }}
+                disabled={isLoading}
+                className="text-xs text-[#0F2E22] hover:text-[#CBA326] hover:underline font-medium focus:outline-none focus:ring-1 focus:ring-[#CBA326] rounded px-1 py-0.5 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                Forgot password?
+              </button>
+            </div>
+
+            {successMessage && (
+              <div
+                className="text-xs text-emerald-800 bg-emerald-50 border border-emerald-200 px-3.5 py-2.5 rounded-md flex items-start gap-2 animate-in fade-in duration-150"
+                role="status"
+              >
+                <ICheck size={16} className="text-emerald-600 shrink-0 mt-0.5" />
+                <span>{successMessage}</span>
+              </div>
+            )}
+
             {activeError && (
               <div
                 className="text-xs text-red-700 bg-red-50 border border-red-200 px-3.5 py-2.5 rounded-md flex items-start gap-2"
@@ -165,6 +205,13 @@ export const LoginPage: React.FC = () => {
             </div>
           )}
         </Card>
+
+        {/* Forgot Password Modal */}
+        <ForgotPasswordModal
+          isOpen={showForgotPassword}
+          onClose={() => setShowForgotPassword(false)}
+          onSuccess={handleRecoverySuccess}
+        />
 
         {/* Footer */}
         <p className="text-center text-xs text-slate-400 mt-6">

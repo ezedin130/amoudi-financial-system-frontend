@@ -192,4 +192,26 @@ describe('LoginPage', () => {
       expect(toggleButton).toBeDisabled();
     });
   });
+
+  describe('Forgot Password Flow', () => {
+    it('renders the Forgot password link button on the login form', () => {
+      renderLoginPage();
+
+      const forgotPasswordLink = screen.getByRole('button', { name: /forgot password\?/i });
+      expect(forgotPasswordLink).toBeInTheDocument();
+      expect(forgotPasswordLink).not.toBeDisabled();
+    });
+
+    it('opens the Forgot Password modal when the link is clicked', () => {
+      renderLoginPage();
+
+      expect(screen.queryByText('Recover Account Password')).not.toBeInTheDocument();
+
+      fireEvent.click(screen.getByRole('button', { name: /forgot password\?/i }));
+
+      expect(screen.getByText('Recover Account Password')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /send recovery code/i })).toBeInTheDocument();
+    });
+  });
 });
+
